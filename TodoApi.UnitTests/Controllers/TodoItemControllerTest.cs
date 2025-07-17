@@ -2,14 +2,14 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TodoApi.Controllers;
-using TodoApi.Models;
+using TodoApi.Application.Controllers;
+using TodoApi.Application.Models;
 using Xunit;
 
 
-namespace TodoApi.UnitTests;
+namespace TodoApi.UnitTests.Controllers;
 
-public class Todo
+public class TodoItemControllerTest
 {
 
     private TodoContext GetInMemoryDbContext()

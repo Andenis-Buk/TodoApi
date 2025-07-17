@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 
-namespace TodoApi.Models;
+namespace TodoApi.Application.Models;
 
 public static class SeedData
 {

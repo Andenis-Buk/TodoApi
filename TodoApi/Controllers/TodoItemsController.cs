@@ -6,9 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TodoApi.Models;
+using TodoApi.Application.Models;
 
-namespace TodoApi.Controllers;
+namespace TodoApi.Application.Controllers;
 
 [Route("api/todo")]
 [ApiController]
