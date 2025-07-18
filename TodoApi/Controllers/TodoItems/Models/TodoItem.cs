@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TodoApi.Application.Models;
+namespace TodoApi.Application.Controllers.TodoItems.Models;
 
 public class TodoItem
 {

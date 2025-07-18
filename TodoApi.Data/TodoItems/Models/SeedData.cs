@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
 
-namespace TodoApi.Application.Models;
+namespace TodoApi.Data.TodoItems.Models;
 
 public static class SeedData
 {
@@ -19,19 +17,19 @@ public static class SeedData
                 return;   // DB has been seeded
             }
             context.TodoItems.AddRange(
-                new TodoItem
+                new TodoItemEntity
                 {
                     Title = "Wash dishes",
                     DueDate = DateOnly.Parse("2025-7-13"),
                     IsCompleted = true,
                 },
-                new TodoItem
+                new TodoItemEntity
                 {
                     Title = "Takeout trash",
                     DueDate = DateOnly.Parse("2025-7-14"),
                     IsCompleted = true,
                 },
-                new TodoItem
+                new TodoItemEntity
                 {
                     Title = "Clean bathroom",
                     DueDate = DateOnly.Parse("2025-7-17"),

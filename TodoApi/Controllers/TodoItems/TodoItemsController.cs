@@ -1,35 +1,28 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TodoApi.Application.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using TodoApi.Application.Controllers.TodoItems.Models;
+using TodoApi.Services.TodoItems;
 
-namespace TodoApi.Application.Controllers;
+namespace TodoApi.Application.Controllers.TodoItems;
 
 [Route("api/todo")]
 [ApiController]
 public class TodoItemsController : ControllerBase
 {
-    private readonly TodoContext _context;
+    private readonly ITodoItemsService _todoItemsService;
 
-    public TodoItemsController(TodoContext context)
+    public TodoItemsController(ITodoItemsService todoItemsService)
     {
-        _context = context;
+        _todoItemsService = todoItemsService;
     }
 
-    // GET: api/todo
+    //GET: api/todo
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TodoItemGetDTO>>> GetTodoItems()
+    public async Task<ActionResult<IEnumerable<TodoItemResponse>>> GetTodoItems()
     {
-        return await _context.TodoItems
-            .Select(x => TodoItemToGetDTO(x))
-            .ToListAsync();
+        return (await _todoItemsService.GetTodoItems()).Select(model => model.ToResponse()).ToList();
     }
 
+    /*
     // POST: api/todo
     [HttpPost]
     public async Task<IActionResult> PostTodoItem(TodoItemSetDTO todoItemSetDTO)
@@ -98,15 +91,5 @@ public class TodoItemsController : ControllerBase
 
         return NoContent();
     }
-
-    private static TodoItemGetDTO TodoItemToGetDTO(TodoItem todoItem)
-    {
-        return new TodoItemGetDTO
-        {
-            Id = todoItem.Id,
-            Title = todoItem.Title,
-            DueDate = todoItem.DueDate,
-            IsCompleted = todoItem.IsCompleted,
-        };
-    }
+    */
 }
