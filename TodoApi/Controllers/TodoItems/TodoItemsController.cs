@@ -19,77 +19,65 @@ public class TodoItemsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<TodoItemResponse>>> GetTodoItems()
     {
-        return (await _todoItemsService.GetTodoItems()).Select(model => model.ToResponse()).ToList();
+        var models = await _todoItemsService.GetTodoItems();
+        return models.Select(model => model.ToResponse()).ToList();
     }
 
-    /*
+
     // POST: api/todo
     [HttpPost]
-    public async Task<IActionResult> PostTodoItem(TodoItemSetDTO todoItemSetDTO)
+    public async Task<IActionResult> PostTodoItem(CreateTodoItemRequest request)
     {
-        var todoItem = new TodoItem
-        {
-            Title = todoItemSetDTO.Title,
-            DueDate = todoItemSetDTO.DueDate,
-            IsCompleted = todoItemSetDTO.IsCompleted,
-        };
-
-        _context.TodoItems.Add(todoItem);
-        await _context.SaveChangesAsync();
+        await _todoItemsService.PostTodoItem(request.toModel());
 
         return NoContent();
     }
 
+
     // GET: api/todo/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<TodoItemGetDTO>> GetTodoItem(int id)
+    public async Task<ActionResult<TodoItemResponse>> GetTodoItem(int id)
     {
-        var todoItem = await _context.TodoItems.FindAsync(id);
+        var model = await _todoItemsService.GetTodoItem(id);
 
-        if (todoItem == null)
+        if (model == null)
         {
             return NotFound();
         }
 
-        return TodoItemToGetDTO(todoItem);
+        return model.ToResponse();
     }
 
     // PUT: api/todo/5
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutTodoItem(int id, TodoItemSetDTO todoItemSetDTO)
+    public async Task<IActionResult> PutTodoItem(int id, UpdateTodoItemRequest request)
     {
-
-        var todoItem = await _context.TodoItems.FindAsync(id);
-
-        if (todoItem == null)
+        try
+        {
+            await _todoItemsService.PutTodoItem(id, request.toModel());
+        }
+        catch (KeyNotFoundException)
         {
             return NotFound();
         }
 
-        todoItem.Title = todoItemSetDTO.Title;
-        todoItem.DueDate = todoItemSetDTO.DueDate;
-        todoItem.IsCompleted = todoItemSetDTO.IsCompleted;
-
-        await _context.SaveChangesAsync();
-
         return NoContent();
     }
 
-    // DELETE: api/todo/5
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteTodoItem(int id)
-    {
-        var todoItem = await _context.TodoItems.FindAsync(id);
+    //// DELETE: api/todo/5
+    //[HttpDelete("{id}")]
+    //public async Task<IActionResult> DeleteTodoItem(int id)
+    //{
+    //    var todoItem = await _context.TodoItems.FindAsync(id);
 
-        if (todoItem == null)
-        {
-            return NotFound();
-        }
+    //    if (todoItem == null)
+    //    {
+    //        return NotFound();
+    //    }
 
-        _context.TodoItems.Remove(todoItem);
-        await _context.SaveChangesAsync();
+    //    _context.TodoItems.Remove(todoItem);
+    //    await _context.SaveChangesAsync();
 
-        return NoContent();
-    }
-    */
+    //    return NoContent();
+    //}
 }

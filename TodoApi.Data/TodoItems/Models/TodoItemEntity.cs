@@ -7,3 +7,14 @@ public class TodoItemEntity
     public DateOnly? DueDate { get; set; }
     public bool? IsCompleted { get; set; }
 }
+
+public static class TodoItemEntityExtensions
+{
+    public static void UpdateEntity(this TodoItemEntity todoItem, TodoItemEntity entity)
+    {
+        todoItem.Id = entity.Id;
+        todoItem.Title = entity.Title;
+        todoItem.DueDate = entity.DueDate;
+        todoItem.IsCompleted = entity.IsCompleted;
+    }
+}

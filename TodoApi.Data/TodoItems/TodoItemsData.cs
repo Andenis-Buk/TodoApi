@@ -16,4 +16,29 @@ public class TodoItemsData : ITodoItemsData
     {
         return await _todoContext.TodoItems.ToListAsync();
     }
+
+    public async Task PostTodoItem(TodoItemEntity entity)
+    {
+        _todoContext.TodoItems.Add(entity);
+        await _todoContext.SaveChangesAsync();
+    }
+
+    public async Task<TodoItemEntity?> GetTodoItem(int id)
+    {
+        return await _todoContext.TodoItems.FindAsync(id);
+    }
+
+    public async Task PutTodoItem(int id, TodoItemEntity entity)
+    {
+        var todoItem = await _todoContext.TodoItems.FindAsync(id);
+
+        if (todoItem == null)
+        {
+
+            throw new KeyNotFoundException($"Todo item with id {id} not found.");
+        }
+
+        todoItem.UpdateEntity(entity);
+        await _todoContext.SaveChangesAsync();
+    }
 }

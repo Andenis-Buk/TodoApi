@@ -22,4 +22,15 @@ public static class TodoItemModelExtensions
             IsCompleted = entity.IsCompleted,
         };
     }
+
+    public static TodoItemEntity ToEntity(this TodoItemModel model)
+    {
+        return new TodoItemEntity
+        {
+            Id = model.Id,
+            Title = model.Title,
+            DueDate = model.DueDate,
+            IsCompleted = model.IsCompleted,
+        };
+    }
 }

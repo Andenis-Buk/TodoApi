@@ -15,6 +15,23 @@ public class TodoItemsService : ITodoItemsService
 
     public async Task<IEnumerable<TodoItemModel>> GetTodoItems()
     {
-        return (await _todoItemsData.GetTodoItems()).Select(entity => entity.ToModel());
+        var entitys = await _todoItemsData.GetTodoItems();
+        return entitys.Select(entitys => entitys.ToModel());
+    }
+
+    public async Task PostTodoItem(TodoItemModel model)
+    {
+        await _todoItemsData.PostTodoItem(model.ToEntity());
+    }
+
+    public async Task<TodoItemModel?> GetTodoItem(int id)
+    {
+        var entity = await _todoItemsData.GetTodoItem(id);
+        return entity?.ToModel();
+    }
+
+    public async Task PutTodoItem(int id, TodoItemModel model)
+    {
+        await _todoItemsData.PutTodoItem(id, model.ToEntity());
     }
 }
