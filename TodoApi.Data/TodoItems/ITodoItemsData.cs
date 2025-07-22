@@ -8,7 +8,9 @@ public interface ITodoItemsData
 
     Task PostTodoItem(TodoItemEntity entity);
 
-    Task<TodoItemEntity?> GetTodoItem(int id);
+    Task<TodoItemEntity> GetTodoItem(int id);
 
     Task PutTodoItem(int id, TodoItemEntity entity);
+
+    Task DeleteTodoItem(int id);
 }

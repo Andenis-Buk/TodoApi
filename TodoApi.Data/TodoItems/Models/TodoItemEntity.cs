@@ -12,7 +12,6 @@ public static class TodoItemEntityExtensions
 {
     public static void UpdateEntity(this TodoItemEntity todoItem, TodoItemEntity entity)
     {
-        todoItem.Id = entity.Id;
         todoItem.Title = entity.Title;
         todoItem.DueDate = entity.DueDate;
         todoItem.IsCompleted = entity.IsCompleted;

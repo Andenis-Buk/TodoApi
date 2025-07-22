@@ -38,14 +38,15 @@ public class TodoItemsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<TodoItemResponse>> GetTodoItem(int id)
     {
-        var model = await _todoItemsService.GetTodoItem(id);
-
-        if (model == null)
+        try
+        {
+            var model = await _todoItemsService.GetTodoItem(id);
+            return model.ToResponse();
+        }
+        catch (KeyNotFoundException)
         {
             return NotFound();
         }
-
-        return model.ToResponse();
     }
 
     // PUT: api/todo/5
@@ -64,20 +65,19 @@ public class TodoItemsController : ControllerBase
         return NoContent();
     }
 
-    //// DELETE: api/todo/5
-    //[HttpDelete("{id}")]
-    //public async Task<IActionResult> DeleteTodoItem(int id)
-    //{
-    //    var todoItem = await _context.TodoItems.FindAsync(id);
+    // DELETE: api/todo/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteTodoItem(int id)
+    {
+        try
+        {
+            await _todoItemsService.DeleteTodoItem(id);
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
 
-    //    if (todoItem == null)
-    //    {
-    //        return NotFound();
-    //    }
-
-    //    _context.TodoItems.Remove(todoItem);
-    //    await _context.SaveChangesAsync();
-
-    //    return NoContent();
-    //}
+        return NoContent();
+    }
 }

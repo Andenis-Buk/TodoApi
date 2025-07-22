@@ -9,7 +9,9 @@ public interface ITodoItemsService
 
     Task PostTodoItem(TodoItemModel model);
 
-    Task<TodoItemModel?> GetTodoItem(int id);
+    Task<TodoItemModel> GetTodoItem(int id);
 
     Task PutTodoItem(int id, TodoItemModel model);
+
+    Task DeleteTodoItem(int id);
 }

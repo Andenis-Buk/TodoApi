@@ -24,14 +24,19 @@ public class TodoItemsService : ITodoItemsService
         await _todoItemsData.PostTodoItem(model.ToEntity());
     }
 
-    public async Task<TodoItemModel?> GetTodoItem(int id)
+    public async Task<TodoItemModel> GetTodoItem(int id)
     {
         var entity = await _todoItemsData.GetTodoItem(id);
-        return entity?.ToModel();
+        return entity.ToModel();
     }
 
     public async Task PutTodoItem(int id, TodoItemModel model)
     {
         await _todoItemsData.PutTodoItem(id, model.ToEntity());
+    }
+
+    public async Task DeleteTodoItem(int id)
+    {
+        await _todoItemsData.DeleteTodoItem(id);
     }
 }
