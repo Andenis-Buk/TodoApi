@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TodoApi.Data.TodoItems;
+using TodoApi.Data.TodoItems.Models;
 using TodoApi.Services.TodoItems.Models;
 
 namespace TodoApi.Services.TodoItems;
@@ -19,9 +20,10 @@ public class TodoItemsService : ITodoItemsService
         return entitys.Select(entitys => entitys.ToModel());
     }
 
-    public async Task PostTodoItem(TodoItemModel model)
+    public async Task<TodoItemModel> PostTodoItem(TodoItemModel model)
     {
-        await _todoItemsData.PostTodoItem(model.ToEntity());
+        var entity = await _todoItemsData.PostTodoItem(model.ToEntity());
+        return entity.ToModel();
     }
 
     public async Task<TodoItemModel> GetTodoItem(int id)
@@ -30,13 +32,15 @@ public class TodoItemsService : ITodoItemsService
         return entity.ToModel();
     }
 
-    public async Task PutTodoItem(int id, TodoItemModel model)
+    public async Task<TodoItemModel> PutTodoItem(int id, TodoItemModel model)
     {
-        await _todoItemsData.PutTodoItem(id, model.ToEntity());
+        var entity = await _todoItemsData.PutTodoItem(id, model.ToEntity());
+        return entity.ToModel();
     }
 
-    public async Task DeleteTodoItem(int id)
+    public async Task<TodoItemModel> DeleteTodoItem(int id)
     {
-        await _todoItemsData.DeleteTodoItem(id);
+        var entity = await _todoItemsData.DeleteTodoItem(id);
+        return entity.ToModel();
     }
 }

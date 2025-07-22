@@ -17,10 +17,12 @@ public class TodoItemsData : ITodoItemsData
         return await _todoContext.TodoItems.ToListAsync();
     }
 
-    public async Task PostTodoItem(TodoItemEntity entity)
+    public async Task<TodoItemEntity> PostTodoItem(TodoItemEntity entity)
     {
         _todoContext.TodoItems.Add(entity);
         await _todoContext.SaveChangesAsync();
+
+        return entity;
     }
 
     public async Task<TodoItemEntity> GetTodoItem(int id)
@@ -28,19 +30,23 @@ public class TodoItemsData : ITodoItemsData
         return await _todoContext.TodoItems.FindAsync(id) ?? throw new KeyNotFoundException();
     }
 
-    public async Task PutTodoItem(int id, TodoItemEntity entity)
+    public async Task<TodoItemEntity> PutTodoItem(int id, TodoItemEntity entity)
     {
         var todoItem = await _todoContext.TodoItems.FindAsync(id) ?? throw new KeyNotFoundException();
 
         todoItem.UpdateEntity(entity);
         await _todoContext.SaveChangesAsync();
+
+        return todoItem;
     }
 
-    public async Task DeleteTodoItem(int id)
+    public async Task<TodoItemEntity> DeleteTodoItem(int id)
     {
         var todoItem = await _todoContext.TodoItems.FindAsync(id) ?? throw new KeyNotFoundException();
 
         _todoContext.TodoItems.Remove(todoItem);
         await _todoContext.SaveChangesAsync();
+
+        return todoItem;
     }
 }

@@ -6,11 +6,11 @@ public interface ITodoItemsData
 {
     Task<IEnumerable<TodoItemEntity>> GetTodoItems();
 
-    Task PostTodoItem(TodoItemEntity entity);
+    Task<TodoItemEntity> PostTodoItem(TodoItemEntity entity);
 
     Task<TodoItemEntity> GetTodoItem(int id);
 
-    Task PutTodoItem(int id, TodoItemEntity entity);
+    Task<TodoItemEntity> PutTodoItem(int id, TodoItemEntity entity);
 
-    Task DeleteTodoItem(int id);
+    Task<TodoItemEntity> DeleteTodoItem(int id);
 }

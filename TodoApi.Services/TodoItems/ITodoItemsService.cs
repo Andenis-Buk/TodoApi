@@ -7,11 +7,11 @@ public interface ITodoItemsService
 {
     Task<IEnumerable<TodoItemModel>> GetTodoItems();
 
-    Task PostTodoItem(TodoItemModel model);
+    Task<TodoItemModel> PostTodoItem(TodoItemModel model);
 
     Task<TodoItemModel> GetTodoItem(int id);
 
-    Task PutTodoItem(int id, TodoItemModel model);
+    Task<TodoItemModel> PutTodoItem(int id, TodoItemModel model);
 
-    Task DeleteTodoItem(int id);
+    Task<TodoItemModel> DeleteTodoItem(int id);
 }

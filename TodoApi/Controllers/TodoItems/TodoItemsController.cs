@@ -26,11 +26,10 @@ public class TodoItemsController : ControllerBase
 
     // POST: api/todo
     [HttpPost]
-    public async Task<IActionResult> PostTodoItem(CreateTodoItemRequest request)
+    public async Task<ActionResult<TodoItemResponse>> PostTodoItem(CreateTodoItemRequest request)
     {
-        await _todoItemsService.PostTodoItem(request.toModel());
-
-        return NoContent();
+        var model = await _todoItemsService.PostTodoItem(request.toModel());
+        return model.ToResponse();
     }
 
 
@@ -51,33 +50,31 @@ public class TodoItemsController : ControllerBase
 
     // PUT: api/todo/5
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutTodoItem(int id, UpdateTodoItemRequest request)
+    public async Task<ActionResult<TodoItemResponse>> PutTodoItem(int id, UpdateTodoItemRequest request)
     {
         try
         {
-            await _todoItemsService.PutTodoItem(id, request.toModel());
+            var model = await _todoItemsService.PutTodoItem(id, request.toModel());
+            return model.ToResponse();
         }
         catch (KeyNotFoundException)
         {
             return NotFound();
         }
-
-        return NoContent();
     }
 
     // DELETE: api/todo/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteTodoItem(int id)
+    public async Task<ActionResult<TodoItemResponse>> DeleteTodoItem(int id)
     {
         try
         {
-            await _todoItemsService.DeleteTodoItem(id);
+            var model = await _todoItemsService.DeleteTodoItem(id);
+            return model.ToResponse();
         }
         catch (KeyNotFoundException)
         {
             return NotFound();
         }
-
-        return NoContent();
     }
 }
